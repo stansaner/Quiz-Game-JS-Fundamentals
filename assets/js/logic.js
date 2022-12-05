@@ -4,46 +4,63 @@ var startButton = document.querySelector('#start');
 
 var currentQuestionIndex = 0; // Keeping track of the question number
 
+
+
+// The time limit for the quiz is 60 seconds
+var timeRemaining = 60;
+
+// tracking whether to penalize in countdown for wrong answers;
+var penalty = false;
+
+var timerEl = document.getElementById('time');
+    
+timerEl.textContent = `${timeRemaining}`;
+
 // Add an event listener to the quiz start button
 startButton.addEventListener('click', launch);
 
 
+// Function to count down the timer
 function countdown() {
 
-    // The time limit for the quiz is 60 seconds
-    var timeRemaining = 60;
+    if (penalty) {
+        //penalize wrong answer by 10 seconds
+        timeRemaining -= 10;
+        penalty = false;
+    }
 
-    var timerEl = document.getElementById('time');
-    
-    timerEl.textContent = `${timeRemaining}`;
-
-    //Using the `setInterval()` method to call a function 'ask' every 1000 milliseconds
+    //Using the `setInterval()` method to call a function every 1000 milliseconds
 
     var timeInterval = setInterval(function () {
 
         timeRemaining--;
+
         if (timeRemaining > 0) {
           // There is still time left
           timerEl.textContent = `${timeRemaining}`;
+          // timerEl.textContent = timeRemaining;
         } else {
           // Game Over
+          // Time counter could be negative, zero it out
           timeRemaining = 0;
           timerEl.textContent = `${timeRemaining}`;
+          // timerEl.textContent = timeRemaining;
           clearInterval(timeInterval);
-          // displayEndScreen();
+
+          // We ran out of time
+          gameOver();
         };
     
       }, 1000);
-
-    return timeRemaining;
-
 }
 
+function gameOver() {
+    console.log('Game Over!');
+}
 
 function launch() {
 
-    // The time limit for the quiz is 60 seconds
-    var timeRemaining = 60;
+    countdown();
 
     // hide the start screen after pressing the start button
 
@@ -88,12 +105,15 @@ function launch() {
         if (el.dataset.correct == 'true') {
             var soundCorrect = new Audio('./assets/sfx/correct.wav');
             soundCorrect.play();
-            alert('you got it right');
+            // Just in case we forgot to reset the penalty
+            penalty = false;
+            // alert('you got it right');
         } else {
             // wrong answer, penalize the timer by 10 seconds
             var soundIncorrect = new Audio('./assets/sfx/incorrect.wav');
             soundIncorrect.play();
-            timeRemaining -= 10;
+            penalty = true;
+            countdown();
         }
     }
 
@@ -104,8 +124,7 @@ function launch() {
 
     questionWrap.addEventListener('click', checkAnswer);
 
-    score = countdown();
-
+    
     // Before asking another question we need to clear out
     // the questions wrapper for another round 
 
