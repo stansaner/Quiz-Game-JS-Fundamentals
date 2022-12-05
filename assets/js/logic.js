@@ -85,10 +85,14 @@ function launch() {
     function checkAnswer(event) {
         var el = event.target;
 
-        if (el.dataset.correct) {
-            //  alert('you got it right');
+        if (el.dataset.correct == 'true') {
+            var soundCorrect = new Audio('./assets/sfx/correct.wav');
+            soundCorrect.play();
+            alert('you got it right');
         } else {
             // wrong answer, penalize the timer by 10 seconds
+            var soundIncorrect = new Audio('./assets/sfx/incorrect.wav');
+            soundIncorrect.play();
             timeRemaining -= 10;
         }
     }
