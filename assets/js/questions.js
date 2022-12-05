@@ -1,3 +1,8 @@
+// Quiz questions are arranged in an array of objects.
+// Each object contains the question in a 'title' property,
+// 4 choices in an embedded array
+// and the correct answer in its 'answer' property
+
 var questions_array = [
     {
         title: 'What is the acronym for the Document Object Model?',
