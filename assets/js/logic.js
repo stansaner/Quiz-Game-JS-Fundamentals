@@ -11,9 +11,6 @@ var choicesOutput = document.querySelector("#choices");
 // The time limit for the quiz is 60 seconds
 var timeRemaining = 60;
 
-// tracking whether to penalize in countdown for wrong answers;
-var penalty = false;
-
 var timerEl = document.getElementById('time');
     
 timerEl.textContent = `${timeRemaining}`;
@@ -26,22 +23,22 @@ startButton.addEventListener('click', launch);
 function checkAnswer(event) {
     var el = event.target;
 
-
     if (el.dataset.correct == 'true') {
         var soundCorrect = new Audio('./assets/sfx/correct.wav');
         soundCorrect.play();
-        // Just in case we forgot to reset the penalty
-        penalty = false;
         // alert('you got it right');
         // Show feedback
         feedback.classList.remove('hide');
         feedback.innerText = 'Correct answer';
     } else {
         // wrong answer, penalize the timer by 10 seconds
+        
+        timeRemaining = timerEl.textContent;
+        timeRemaining -= 10;
+        timerEl.textContent = `${timeRemaining}`;
+
         var soundIncorrect = new Audio('./assets/sfx/incorrect.wav');
         soundIncorrect.play();
-        penalty = true;
-        countdown();
         // Show feedback
         feedback.classList.remove('hide');
         feedback.innerText = 'Incorrect answer';
@@ -58,13 +55,6 @@ function checkAnswer(event) {
 
 // Function to count down the timer
 function countdown() {
-
-    if (penalty) {
-        //penalize wrong answer by 10 seconds
-        timeRemaining -= 10;
-        // Reset the penalty
-        penalty = false;
-    }
 
     //Using the `setInterval()` method to call a function every 1000 milliseconds
 
@@ -93,10 +83,15 @@ function countdown() {
 
 function gameOver() {
     console.log('Game Over!');
+    score = timeRemaining;
+    console.log('Your score is: '+score);
+    choicesOutput.innerHTML = '';
 }
 
 function askQuestion() {
     
+    // Before asking another question we need to clear out
+    // the questions wrapper for another round 
     choicesOutput.innerHTML = '';
 
     if (currentQuestionIndex < questions_array.length) {
@@ -148,12 +143,6 @@ function launch() {
 
 
     askQuestion();
-
-    
-    // Before asking another question we need to clear out
-    // the questions wrapper for another round 
-
-    
 
 }
 
