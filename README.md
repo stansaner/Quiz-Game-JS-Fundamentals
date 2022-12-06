@@ -22,7 +22,7 @@ This score can be entered into the local storage
 
 Clone the repo and run in a browser of your choice by opening the index.html file.
 
-Alternatively you can run it from the [live published version](https://github.com/stansaner/Quiz-Game-JS-Fundamentals) online.
+Alternatively you can run it from the [live published version](https://stansaner.github.io/Quiz-Game-JS-Fundamentals/) online.
 
 ## Licence
 
