@@ -14,8 +14,8 @@ After completion the remaining time represents the achieved score.
 This score can be entered into the local storage
 
 ## Screenshots
-![alt text](https://github.com/stansaner/Quiz-Game-JS-Fundamentals/assets/img/Coding_Quiz_screenshot-1.png "Launch screen")
-![alt text](https://github.com/stansaner/Quiz-Game-JS-Fundamentals/assets/img/Coding_Quiz_screenshot-2.png "Highscores screen")
+![Alt text](assets/img/Coding_Quiz_screenshot-1.png?raw=true "Launch screen")
+![Alt text](assets/img/Coding_Quiz_screenshot-2.png?raw=true "Highscores screen")
 
 
 ## Installation
