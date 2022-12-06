@@ -68,11 +68,6 @@ function checkAnswer(event) {
 
 
 function gameOver() {
-    console.log('Game Over!');
-    score = timeRemaining;
-    console.log('Your score is: '+score);
-    choicesOutput.innerHTML = '';
-
     if (finishedOnTimeScore > 0) {
         // finished on time, capture the score
         finalScore.innerText = finishedOnTimeScore;
@@ -82,7 +77,11 @@ function gameOver() {
     }
     questionWrap.classList.add('hide');
     endScreen.classList.remove('hide');
-        
+    
+    console.log('Game Over!');
+    score = finalScore.innerText;
+    console.log('Your score is: '+score);
+    choicesOutput.innerHTML = '';
 }
 
 // Function to count down the timer
