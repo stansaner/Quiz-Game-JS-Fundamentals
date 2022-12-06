@@ -8,6 +8,9 @@ var questionWrap = document.querySelector("#questions");
 var questionTitle = document.querySelector("#question-title");
 var choicesOutput = document.querySelector("#choices");
 
+var endScreen = document.querySelector('#end-screen');
+var finalScore = document.querySelector('#final-score');
+
 // The time limit for the quiz is 60 seconds
 var timeRemaining = 60;
 
@@ -53,6 +56,19 @@ function checkAnswer(event) {
     askQuestion();
 }
 
+
+function gameOver() {
+    console.log('Game Over!');
+    score = timeRemaining;
+    console.log('Your score is: '+score);
+    choicesOutput.innerHTML = '';
+
+    finalScore.innerText = timerEl.textContent;
+    questionWrap.classList.add('hide');
+    endScreen.classList.remove('hide');
+        
+}
+
 // Function to count down the timer
 function countdown() {
 
@@ -81,17 +97,11 @@ function countdown() {
       }, 1000);
 }
 
-function gameOver() {
-    console.log('Game Over!');
-    score = timeRemaining;
-    console.log('Your score is: '+score);
-    choicesOutput.innerHTML = '';
-}
-
 function askQuestion() {
     
     // Before asking another question we need to clear out
-    // the questions wrapper for another round 
+    // the questions title and choices for another round 
+    questionTitle.innerHTML = '';
     choicesOutput.innerHTML = '';
 
     if (currentQuestionIndex < questions_array.length) {
