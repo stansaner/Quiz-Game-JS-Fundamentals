@@ -14,6 +14,16 @@ var finalScore = document.querySelector('#final-score');
 // The time limit for the quiz is 60 seconds
 var timeRemaining = 60;
 
+// This variable preserves the final score when finished on time
+// The timer in the countdown() continues until down to zero in
+// the background, so we cannot capture the score directly
+// from the timer, hence this variable.
+// When we record the final scoire, we test for this variable
+// being zero or not, zero meaning we ran out of time.
+// If not zero, the quiz finished before the time was up and
+// we capture its value as the final score
+var finishedOnTimeScore = 0;
+
 var timerEl = document.getElementById('time');
     
 timerEl.textContent = `${timeRemaining}`;
@@ -63,7 +73,13 @@ function gameOver() {
     console.log('Your score is: '+score);
     choicesOutput.innerHTML = '';
 
-    finalScore.innerText = timerEl.textContent;
+    if (finishedOnTimeScore > 0) {
+        // finished on time, capture the score
+        finalScore.innerText = finishedOnTimeScore;
+    } else {
+        // Ran out of time, score is 0
+        finalScore.innerText = 0;
+    }
     questionWrap.classList.add('hide');
     endScreen.classList.remove('hide');
         
@@ -134,6 +150,14 @@ function askQuestion() {
 
         questionWrap.addEventListener('click', checkAnswer);
     } else {
+        if (timeRemaining > 0) {
+            // finished on time
+            finishedOnTimeScore = timeRemaining;
+        } else {
+            // Ran out of time, the score is always 0
+            score = 0;
+        }
+
         gameOver();
     }
 }
