@@ -11,6 +11,9 @@ var choicesOutput = document.querySelector("#choices");
 var endScreen = document.querySelector('#end-screen');
 var finalScore = document.querySelector('#final-score');
 
+var name = document.querySelector('#initials');
+var submit = document.querySelector('#submit');
+
 // The time limit for the quiz is 60 seconds
 var timeRemaining = 60;
 
@@ -24,6 +27,10 @@ var timeRemaining = 60;
 // we capture its value as the final score
 var finishedOnTimeScore = 0;
 
+// Capture high scores in an array of objects
+// The object structure is {initials: 'string', score: <score>}
+var highScores = [];
+
 var timerEl = document.getElementById('time');
     
 timerEl.textContent = `${timeRemaining}`;
@@ -31,7 +38,10 @@ timerEl.textContent = `${timeRemaining}`;
 // Add an event listener to the quiz start button
 startButton.addEventListener('click', launch);
 
-// This function actually checks whether the answer is correct 
+// Add an event listener for the scores capture submit button
+submit.addEventListener('click', captureScores);
+
+// This function checks whether the answer is correct 
 
 function checkAnswer(event) {
     var el = event.target;
@@ -174,9 +184,23 @@ function launch() {
     startScreen.classList.add('hide');
     console.log("launched");
 
-
     askQuestion();
+}
 
+// Function called when Submit button is clicked to capture high scores
+
+function captureScores() {
+    var name = initials.value;
+    var bestscore = finalScore.innerText;
+    var scoreObject = {
+        initials: `${name}`,
+        score: `${bestscore}`
+    }
+
+    // Add a new object to the highScores array
+    highScores.push(scoreObject);
+    localStorage.setItem('high_scores', JSON.stringify(highScores));
+    window.location.href = "highscores.html";
 }
 
 
