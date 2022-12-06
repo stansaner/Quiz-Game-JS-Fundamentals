@@ -197,9 +197,13 @@ function captureScores() {
         score: `${bestscore}`
     }
 
+
     // Add a new object to the highScores array
     highScores.push(scoreObject);
+
     localStorage.setItem('high_scores', JSON.stringify(highScores));
+
+    // The scores will be displayed in highscores.html
     window.location.href = "highscores.html";
 }
 

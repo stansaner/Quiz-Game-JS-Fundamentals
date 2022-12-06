@@ -7,8 +7,7 @@ var scoresDisplay = document.querySelector('#highscores');
 
 // If the array is empty, don't bother
 if (highScores){
-    for (i = 0; i < highScores.length; i++ ) {
-    
+    for (i = 0; i < highScores.length; i++ ) {  
         scoresDisplay.insertAdjacentHTML('beforeend', `
         <li>${highScores[i].initials}: ${highScores[i].score}</li>
         `);
